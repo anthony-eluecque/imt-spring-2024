@@ -1,5 +1,7 @@
 package org.imt.tournamentmaster.controller.match;
 
+import jakarta.websocket.server.PathParam;
+import org.imt.tournamentmaster.model.match.ImportingReport;
 import org.imt.tournamentmaster.model.match.Match;
 import org.imt.tournamentmaster.service.match.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +46,14 @@ public class MatchController {
         return matchService.getAll();
     }
 
+    @PostMapping
+    public ResponseEntity<ImportingReport> addOne(@RequestBody Match match){
+        ImportingReport report = matchService.createOne(match);
+        return ResponseEntity.ok(report);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Match> updateOne(@PathVariable("id") Long id, @RequestBody Match match){
+        return ResponseEntity.ok(matchService.updateOne(id, match));
+    }
 }

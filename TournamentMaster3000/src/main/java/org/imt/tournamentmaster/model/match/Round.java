@@ -1,9 +1,7 @@
 package org.imt.tournamentmaster.model.match;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import org.imt.tournamentmaster.model.equipe.Equipe;
 
 import java.util.Objects;
@@ -13,12 +11,13 @@ public class Round {
 
     @JsonIgnore
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL )
     private Equipe equipeA;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL )
     private Equipe equipeB;
 
     private int scoreA;

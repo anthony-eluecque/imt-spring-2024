@@ -13,12 +13,13 @@ public class Match {
 
     @JsonIgnore
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Equipe equipeA;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Equipe equipeB;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
