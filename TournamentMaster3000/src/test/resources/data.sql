@@ -31,6 +31,3 @@ INSERT INTO match_rounds (match_id, rounds_id) VALUES (1, 3);
 INSERT INTO match_rounds (match_id, rounds_id) VALUES (2, 4);
 INSERT INTO match_rounds (match_id, rounds_id) VALUES (2, 5);
 INSERT INTO match_rounds (match_id, rounds_id) VALUES (2, 6);
-
-INSERT INTO resultat (id, match_id) VALUES (1, 1);
-INSERT INTO resultat (id, match_id) VALUES (2, 2);

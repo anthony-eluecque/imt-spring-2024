@@ -21,7 +21,7 @@ public class Match {
     @OneToOne
     private Equipe equipeB;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Round> rounds; // Set est un type de collection, on va éviter les confusions et appeler ça un "round"
 
     private Status status;
@@ -107,7 +107,6 @@ public class Match {
                 ", status=" + status +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {

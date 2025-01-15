@@ -25,6 +25,16 @@ public class MatchService {
         return matchRepository.findById(id);
     }
 
+    @Transactional
+    public boolean deleteById(long id) {
+        Optional<Match> match = matchRepository.findById(id);
+        if (match.isPresent()) {
+            matchRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
     @Transactional(readOnly = true)
     public List<Match> getAll() {
         return StreamSupport.stream(matchRepository.findAll().spliterator(), false)

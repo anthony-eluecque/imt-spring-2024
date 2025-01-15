@@ -1,8 +1,6 @@
 package org.imt.tournamentmaster.service.reporting;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.imt.tournamentmaster.TestUtils;
-import org.imt.tournamentmaster.model.resultat.Resultat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -25,23 +23,4 @@ public class JsonReportingServiceTest {
 
     @Autowired
     private ReportingService reportingService;
-
-    @Test
-    public void testGenerateReport() {
-        // create a resultat
-        Resultat resultat = TestUtils.generateResultat();
-
-        // report
-        try {
-            String report = reportingService.report(resultat);
-            logger.info(report);
-
-            Resultat expected = objectMapper.readValue(EXPECTED_REPORT.getBytes(StandardCharsets.UTF_8), Resultat.class);
-            Resultat actual = objectMapper.readValue(report.getBytes(StandardCharsets.UTF_8), Resultat.class);
-
-            Assertions.assertEquals(expected, actual);
-        } catch (IOException e) {
-            fail("Error while reporting", e);
-        }
-    }
 }

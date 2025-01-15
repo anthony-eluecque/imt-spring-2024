@@ -28,8 +28,20 @@ public class MatchController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable long id) {
+
+        boolean isDeleted = matchService.deleteById(id);
+
+        if (isDeleted) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @GetMapping
     public List<Match> getAll() {
         return matchService.getAll();
     }
+
 }
