@@ -30,4 +30,14 @@ public class EquipeService {
         return StreamSupport.stream(equipeRepository.findAll().spliterator(), false)
                 .toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<Equipe[]> getTeamsFromAMatch(long matchId) {
+        return equipeRepository.findTeamsFromAMatch(matchId);
+    }
+
+    @Transactional(readOnly = true)
+    public long getWinnerTeamFromARound(long roundId) {
+        return equipeRepository.findWinnerTeamOfARound(roundId);
+    }
 }

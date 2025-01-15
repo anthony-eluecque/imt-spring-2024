@@ -35,4 +35,19 @@ public class EquipeController {
     public List<Equipe> getAll() {
         return equipeService.getAll();
     }
+
+    @GetMapping("/{matchId}")
+    public List<Equipe[]> findEquipesFromAMatch(@PathVariable long matchId) {
+        List<Equipe[]> equipes = equipeService.getTeamsFromAMatch(matchId);
+        if (equipes.isEmpty())
+            ResponseEntity.notFound().build();
+        return equipes;
+    }
+
+    @GetMapping("/winner/{roundId}")
+    public long findWinnerTeamFromARound(@PathVariable long roundId) {
+        long equipe = equipeService.getWinnerTeamFromARound(roundId);
+        return equipe;
+    }
+
 }

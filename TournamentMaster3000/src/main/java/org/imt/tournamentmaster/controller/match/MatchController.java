@@ -28,8 +28,34 @@ public class MatchController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<Match> getAll() {
         return matchService.getAll();
+    }
+
+    @GetMapping("/{matchId}/roundsnumber")
+    public Integer getRoundsNumber(@PathVariable long matchId) {
+        Integer roundsNumber = matchService.getNumberOfRounds(matchId);
+        if (roundsNumber == null)
+            ResponseEntity.notFound().build();
+        return roundsNumber;
+    }
+
+    @GetMapping("/equipe/{teamId}")
+    public List<Match> getMatchsOfATeam(@PathVariable long teamId) {
+        List<Match> matches = matchService.getMatchesOfATeam(teamId);
+        if (matches.isEmpty())
+            ResponseEntity.notFound().build();
+
+        return matches;
+    }
+
+    @GetMapping("/equipe/{teamId}/matchs-won")
+    public List<Match> getWonMatchsOfATeam(@PathVariable long teamId) {
+        List<Match> matches = matchService.getWonMatchesOfATeam(teamId);
+        if (matches.isEmpty())
+            ResponseEntity.notFound().build();
+
+        return matches;
     }
 }
