@@ -31,3 +31,12 @@ INSERT INTO match_rounds (match_id, rounds_id) VALUES (1, 3);
 INSERT INTO match_rounds (match_id, rounds_id) VALUES (2, 4);
 INSERT INTO match_rounds (match_id, rounds_id) VALUES (2, 5);
 INSERT INTO match_rounds (match_id, rounds_id) VALUES (2, 6);
+
+INSERT INTO role (id, name) VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_USER');
+
+INSERT INTO privilege (id, name) VALUES (1, 'READ_PRIVILEGE'), (2, 'WRITE_PRIVILEGE');
+
+INSERT INTO role_privileges (role_id, privilege_id) VALUES
+                                                        (1, 1), -- ROLE_ADMIN -> READ_PRIVILEGE
+                                                        (1, 2), -- ROLE_ADMIN -> WRITE_PRIVILEGE
+                                                        (2, 1); -- ROLE_USER -> READ_PRIVILEGE

@@ -65,6 +65,36 @@ CREATE TABLE match_rounds
     rounds_id BIGINT NOT NULL
 );
 
+CREATE TABLE user (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE role (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE privilege (
+   id BIGINT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(255) NOT NULL UNIQUE
+);
+
+ALTER TABLE user
+    ADD COLUMN role_id BIGINT,
+ADD CONSTRAINT fk_user_role FOREIGN KEY (role_id) REFERENCES role (id);
+
+CREATE TABLE role_privileges (
+     role_id BIGINT NOT NULL,
+     privilege_id BIGINT NOT NULL,
+     PRIMARY KEY (role_id, privilege_id),
+     CONSTRAINT fk_role_privileges_role FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE,
+     CONSTRAINT fk_role_privileges_privilege FOREIGN KEY (privilege_id) REFERENCES privilege (id) ON DELETE CASCADE
+);
+
 ALTER TABLE match_rounds
     ADD CONSTRAINT uc_match_rounds_rounds UNIQUE (rounds_id);
 
