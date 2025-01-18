@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,9 +65,9 @@ public class MatchService {
         for (Match match: matches){
             try {
                 Match inserted = matchRepository.save(match);
-                reports.add( new ImportingReport(ImportingReport.Status.OK, inserted.getId()) );
+                reports.add( new ImportingReport(ImportingReport.Status.OK, inserted.getId(), Timestamp.from(Instant.now())));
             }catch (Exception e){
-                reports.add( new ImportingReport(ImportingReport.Status.FAILED, -1) );
+                reports.add( new ImportingReport(ImportingReport.Status.FAILED, -1, Timestamp.from(Instant.now())) );
             }
         }
         return reports;
