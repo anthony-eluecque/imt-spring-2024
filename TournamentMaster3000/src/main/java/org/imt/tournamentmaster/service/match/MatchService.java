@@ -1,6 +1,5 @@
 package org.imt.tournamentmaster.service.match;
 
-import jakarta.transaction.TransactionScoped;
 import org.imt.tournamentmaster.model.match.ImportingReport;
 import org.imt.tournamentmaster.model.match.Match;
 import org.imt.tournamentmaster.repository.equipe.EquipeRepository;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -58,9 +58,17 @@ public class MatchService {
     }
 
     @Transactional
-    public ImportingReport createOne(Match match){
-        matchRepository.save(match);
-        return new ImportingReport("ok");
+    public ArrayList<ImportingReport> createOne(Match[] matches){
+        ArrayList<ImportingReport> reports = new ArrayList<>();
+        for (Match match: matches){
+            try {
+                Match inserted = matchRepository.save(match);
+                reports.add( new ImportingReport(ImportingReport.Status.OK, inserted.getId()) );
+            }catch (Exception e){
+                reports.add( new ImportingReport(ImportingReport.Status.FAILED, -1) );
+            }
+        }
+        return reports;
     }
 
     @Transactional
