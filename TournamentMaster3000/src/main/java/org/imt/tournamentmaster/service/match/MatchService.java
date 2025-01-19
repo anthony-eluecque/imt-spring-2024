@@ -120,6 +120,7 @@ public class MatchService {
                 wonMatches.add(match);
         }
         return wonMatches;
+    }
 
     @Transactional
     public ArrayList<ImportingReport> createOne(Match[] matches){
