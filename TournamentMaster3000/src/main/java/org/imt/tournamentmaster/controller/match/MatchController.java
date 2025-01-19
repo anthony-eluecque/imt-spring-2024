@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -81,7 +82,14 @@ public class MatchController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Match> updateOne(@PathVariable("id") Long id, @RequestBody Match match){
-        return ResponseEntity.ok(matchService.updateOne(id, match));
-
+        try{
+            return ResponseEntity.ok(matchService.updateOne(id, match));
+        }catch (RuntimeException e){
+            if (Objects.equals(e.getMessage(), "NOT_FOUND")){
+                return ResponseEntity.notFound().build();
+            }else{
+                throw e;
+            }
+        }
     }
 }

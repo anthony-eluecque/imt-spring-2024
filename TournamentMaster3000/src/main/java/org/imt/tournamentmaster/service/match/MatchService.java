@@ -143,7 +143,7 @@ public class MatchService {
             match.setId(potentialMatch.get().getId());
             return matchRepository.save(match);
         }else{
-            throw new RuntimeException();
+            throw new RuntimeException("NOT_FOUND");
         }
     }
 }
