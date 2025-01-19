@@ -1,7 +1,7 @@
 -- joueur
 CREATE TABLE joueur
 (
-    id     BIGINT       NOT NULL,
+    id     BIGINT   AUTO_INCREMENT       NOT NULL,
     nom    VARCHAR(255) NULL,
     prenom VARCHAR(255) NULL,
     numero INT          NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE joueur
 -- equipe
 CREATE TABLE equipe
 (
-    id  BIGINT       NOT NULL,
+    id  BIGINT  AUTO_INCREMENT       NOT NULL,
     nom VARCHAR(255) NULL,
     CONSTRAINT pk_equipe PRIMARY KEY (id)
 );
@@ -34,7 +34,7 @@ ALTER TABLE equipe_joueurs
 -- round
 CREATE TABLE round
 (
-    id           BIGINT NOT NULL,
+    id           BIGINT AUTO_INCREMENT NOT NULL,
     equipea_id   BIGINT NULL,
     equipeb_id   BIGINT NULL,
     scorea       INT    NOT NULL,
@@ -52,7 +52,7 @@ ALTER TABLE round
 -- match
 CREATE TABLE `match`
 (
-    id         BIGINT   NOT NULL,
+    id         BIGINT   AUTO_INCREMENT   NOT NULL,
     equipea_id BIGINT   NULL,
     equipeb_id BIGINT   NULL,
     status     SMALLINT NULL,
@@ -79,15 +79,3 @@ ALTER TABLE match_rounds
 
 ALTER TABLE match_rounds
     ADD CONSTRAINT fk_matrou_on_round FOREIGN KEY (rounds_id) REFERENCES round (id);
-
--- resultat
-
-CREATE TABLE resultat
-(
-    id       BIGINT NOT NULL,
-    match_id BIGINT NULL,
-    CONSTRAINT pk_resultat PRIMARY KEY (id)
-);
-
-ALTER TABLE resultat
-    ADD CONSTRAINT FK_RESULTAT_ON_MATCH FOREIGN KEY (match_id) REFERENCES `match` (id);
