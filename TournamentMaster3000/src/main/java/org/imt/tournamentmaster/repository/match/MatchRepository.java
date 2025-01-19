@@ -16,11 +16,4 @@ public interface MatchRepository extends CrudRepository<Match, Long> {
     @Query("SELECT COUNT(DISTINCT (m.rounds)) FROM Match m")
     Integer getNumberOfRounds(long matchId);
 
-    /*
-    @Query("SELECT m FROM Match m WHERE (m.equipeA.id = :teamId OR m.equipeB.id = :teamId) AND m.status != 'TERMINE'")
-    List<Match> findByEquipeNotEnd(long teamId);
-     */
-
-
-
 }
