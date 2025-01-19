@@ -71,6 +71,7 @@ public class MatchController {
             ResponseEntity.notFound().build();
 
         return matches;
+    }
       
     @PostMapping
     public ResponseEntity<ArrayList<ImportingReport>> addOne(@RequestBody Match[] matches){
