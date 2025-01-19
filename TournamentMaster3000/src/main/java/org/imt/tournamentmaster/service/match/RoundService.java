@@ -34,4 +34,10 @@ public class RoundService {
     public List<Round> getByScoreAGreaterThanEqual(int scoreA) {
         return roundRepository.findByScoreAGreaterThanEqual(scoreA);
     }
+
+    @Transactional(readOnly = true)
+    public List<Round> getRoundsOfAMatch(long matchId) {
+        return roundRepository.findRoundsOfMatch(matchId);
+    }
+
 }

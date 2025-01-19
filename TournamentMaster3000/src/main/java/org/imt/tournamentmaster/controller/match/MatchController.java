@@ -30,6 +30,7 @@ public class MatchController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable long id) {
 
@@ -41,11 +42,36 @@ public class MatchController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<Match> getAll() {
         return matchService.getAll();
     }
 
+    @GetMapping("/{matchId}/roundsnumber")
+    public Integer getRoundsNumber(@PathVariable long matchId) {
+        Integer roundsNumber = matchService.getNumberOfRounds(matchId);
+        if (roundsNumber == null)
+            ResponseEntity.notFound().build();
+        return roundsNumber;
+    }
+
+    @GetMapping("/equipe/{teamId}")
+    public List<Match> getMatchsOfATeam(@PathVariable long teamId) {
+        List<Match> matches = matchService.getMatchesOfATeam(teamId);
+        if (matches.isEmpty())
+            ResponseEntity.notFound().build();
+
+        return matches;
+    }
+
+    @GetMapping("/equipe/{teamId}/matchs-won")
+    public List<Match> getWonMatchsOfATeam(@PathVariable long teamId) {
+        List<Match> matches = matchService.getWonMatchesOfATeam(teamId);
+        if (matches.isEmpty())
+            ResponseEntity.notFound().build();
+
+        return matches;
+      
     @PostMapping
     public ResponseEntity<ArrayList<ImportingReport>> addOne(@RequestBody Match[] matches){
         ArrayList<ImportingReport> report = matchService.createOne(matches);
@@ -55,5 +81,6 @@ public class MatchController {
     @PutMapping("/{id}")
     public ResponseEntity<Match> updateOne(@PathVariable("id") Long id, @RequestBody Match match){
         return ResponseEntity.ok(matchService.updateOne(id, match));
+
     }
 }

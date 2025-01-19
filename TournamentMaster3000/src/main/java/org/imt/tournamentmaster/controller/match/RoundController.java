@@ -40,4 +40,9 @@ public class RoundController {
     public List<Round> getMaxScore(@PathVariable int scoreA) {
        return roundService.getByScoreAGreaterThanEqual(scoreA);
     }
+
+    @GetMapping("/match/{matchId}")
+    public List<Round> getRoundsOfAMatch(@PathVariable long matchId) {
+        return roundService.getRoundsOfAMatch(matchId);
+    }
 }

@@ -1,6 +1,7 @@
 package org.imt.tournamentmaster.repository.match;
 
 import org.imt.tournamentmaster.model.match.Round;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,7 @@ public interface RoundRepository extends CrudRepository<Round, Long> {
      * Pour faire du sql classique, il faut passer par des Native Query
      */
     List<Round> findByScoreAGreaterThanEqual(int scoreA);
+
+    @Query("SELECT m.rounds FROM Match m WHERE m.id = :matchId")
+    List<Round> findRoundsOfMatch(long matchId);
 }
