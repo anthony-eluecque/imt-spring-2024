@@ -1,11 +1,13 @@
 package org.imt.tournamentmaster.controller.match;
 
+import org.imt.tournamentmaster.model.match.ImportingReport;
 import org.imt.tournamentmaster.model.match.Match;
 import org.imt.tournamentmaster.service.match.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,4 +46,14 @@ public class MatchController {
         return matchService.getAll();
     }
 
+    @PostMapping
+    public ResponseEntity<ArrayList<ImportingReport>> addOne(@RequestBody Match[] matches){
+        ArrayList<ImportingReport> report = matchService.createOne(matches);
+        return ResponseEntity.ok(report);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Match> updateOne(@PathVariable("id") Long id, @RequestBody Match match){
+        return ResponseEntity.ok(matchService.updateOne(id, match));
+    }
 }
